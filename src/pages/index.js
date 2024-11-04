@@ -1,115 +1,91 @@
+import React, { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
-import localFont from "next/font/local";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { motion } from "framer-motion";
 
 export default function Home() {
-  return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [isOpen, setIsOpen] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prevState) => !prevState);
+  };
+
+  return (
+    <div className="flex">
+      <div className="w-2/5 min-h-screen flex items-center justify-center">
+        <div className="flex flex-col">
+          <h6 className="font-medium text-[24px] mb-[4px] text-center">
+            Platformaga kirish
+          </h6>
+          <p className="text-[#393C4E] font-normal mb-[35px] flex justify-center items-center text-center">
+            Loyiha-smeta hujjatlarini ekspertizadan o‘tkazish axborot tizimiga
+            xush kelibsiz
+          </p>
+
+          <motion.form
+            initial={{ opacity: 0, translateY: "100px" }}
+            animate={{ opacity: 1, translateY: "0px" }}
+            className=""
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <div>
+              <label>Login</label>
+              <input
+                type="text"
+                placeholder="Loginni kiriting"
+                className="px-[12px] py-[10px] w-full border border-[#F0F0F0] rounded-[6px] mt-[4px] mb-[16px] placeholder:text-sm"
+              />
+            </div>
+
+            <div>
+              <label>Parol</label>
+              <div className="flex mb-[35px] relative">
+                <input
+                  type={isPasswordVisible ? "text" : "password"}
+                  placeholder="Parolni kiriting"
+                  className="px-[12px] py-[10px]  w-full border border-[#F0F0F0] rounded-[6px] mt-[4px] placeholder:text-sm"
+                />
+                <div className="absolute right-0 top-[18px]   mr-[10px]">
+                  <Image
+                    onClick={togglePasswordVisibility}
+                    src={
+                      isPasswordVisible
+                        ? "/images/closed_eye.png"
+                        : "/images/eye.png"
+                    }
+                    alt="eye"
+                    width={18}
+                    height={18}
+                    className="cursor-pointer"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <Link href={"/appeals"}>
+              <button className="bg-[#01565B] hover:bg-[#013D41] active:bg-[#002426] text-white w-full py-[10px] rounded-[8px] mb-[16px] transition-all duration-300">
+                Kirish
+              </button>
+            </Link>
+
+            <Link
+              href={"#"}
+              className="text-[#8C8C8C] flex items-center justify-center "
+            >
+              Login yoki parolni unutdingizmi?
+            </Link>
+          </motion.form>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </div>
+
+      <div className=" w-3/5  ">
+        <div
+          className=" h-screen bg-no-repeat p-[24px] bg-cover"
+          style={{ backgroundImage: "url(/images/bg-auth.jpg)" }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <Image src={"/images/Logo.png"} alt="logo" width={103} height={42} />
+        </div>
+      </div>
     </div>
   );
 }
