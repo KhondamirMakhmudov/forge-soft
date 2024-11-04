@@ -116,6 +116,7 @@ const Sidebar = ({ openSideBar, setOpenSideBar }) => {
                 <div className="flex items-center gap-x-[10px]">
                   <Image
                     src={`/images/sidebar-menu-${get(item, "id")}.png`}
+                    alt="sidebar-icon"
                     width={23}
                     height={23}
                   />
@@ -142,9 +143,12 @@ const Sidebar = ({ openSideBar, setOpenSideBar }) => {
                         exit={{ opacity: 0, translateY: "30px" }}
                       >
                         {get(item, "subMenu").map((subItem) => (
-                          <li className="flex items-center space-x-4">
+                          <li
+                            className="flex items-center space-x-4"
+                            key={get(subItem, "id")}
+                          >
                             <Link
-                              href={`${get(item, "url")}`}
+                              href={`${get(subItem, "url")}`}
                               className="flex items-center space-x-4"
                             >
                               <span>-</span>
