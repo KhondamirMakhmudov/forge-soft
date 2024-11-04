@@ -40,7 +40,7 @@ export default function Login() {
       {
         onSuccess: () => {
           toast.success("Muvaqqiyatli yakunlandi", { position: "top-right" });
-          router.push("/dashboard");
+          router.push("/");
         },
         onError: (error) => {
           toast.error(`Error is ${error}`, { position: "top-right" });
