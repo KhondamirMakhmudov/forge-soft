@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Sidebar from "@/components/sidebar";
 import Header from "@/components/header";
 
-export default function Home() {
+export default function Dashboard({ children, titleHeader }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -18,9 +18,9 @@ export default function Home() {
       <Sidebar />
 
       <main className="w-full">
-        <Header
-          headerTitle={"Xush kelibsiz! O'zingizga kerakli bo'limni tanlang"}
-        />
+        <Header headerTitle={titleHeader} />
+
+        {children}
       </main>
     </div>
   );

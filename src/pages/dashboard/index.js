@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Sidebar from "@/components/sidebar";
 import Header from "@/components/header";
+import Dashboard from "@/components/dashboard";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,14 +15,8 @@ export default function Home() {
   };
 
   return (
-    <div className="flex bg-[#FCFCFC] gap-x-[12px] p-[12px] min-h-screen">
-      <Sidebar />
-
-      <main className="w-full">
-        <Header
-          headerTitle={"Xush kelibsiz! O'zingizga kerakli bo'limni tanlang"}
-        />
-      </main>
-    </div>
+    <Dashboard
+      titleHeader={"Xush kelibsiz! O'zingizga kerakli bo'limni tanlang"}
+    ></Dashboard>
   );
 }

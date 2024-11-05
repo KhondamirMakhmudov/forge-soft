@@ -11,7 +11,7 @@ const request = axios.create({
     common: {
       Accept: "application/json",
       "Content-Type": "application/json; charset=utf-8",
-      Authorization: `Token 8|I5x4RBIZ2wKM3RowZMHmRrL2SCvWnx3I3VYneR8S6c11d3c9`,
+      Authorization: `Bearer 8|I5x4RBIZ2wKM3RowZMHmRrL2SCvWnx3I3VYneR8S6c11d3c9`,
     },
   },
 });

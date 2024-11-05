@@ -6,6 +6,7 @@ import { get, isEmpty } from "lodash";
 import clsx from "clsx";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
 
 const sideBarMenuData = [
   {
@@ -17,6 +18,7 @@ const sideBarMenuData = [
       {
         id: 1,
         title: "loyihalar",
+        url: "/dashboard/projects",
       },
     ],
   },
@@ -28,13 +30,13 @@ const sideBarMenuData = [
       {
         id: 1,
         title: "Tekshirilgan",
-        url: "/checked",
+        url: "/dashboard/checked",
       },
 
       {
         id: 2,
         title: "Tekshirilmagan",
-        url: "/unchecked",
+        url: "/dashboard/unchecked",
       },
     ],
   },
@@ -47,13 +49,13 @@ const sideBarMenuData = [
       {
         id: 1,
         title: "Normalar",
-        url: "/norms",
+        url: "/dashboard/norms",
       },
 
       {
         id: 2,
         title: "Klassifikatorlar",
-        url: "/classifiers",
+        url: "/dashboard/classifiers",
       },
     ],
   },
@@ -66,19 +68,21 @@ const sideBarMenuData = [
       {
         id: 1,
         title: "ShNK yaratish",
-        url: "/create-shnk",
+        url: "/dashboard/create-shnk",
       },
 
       {
         id: 2,
         title: "smeta shnk",
-        url: "/estimates-shnk",
+        url: "/dashboard/estimates-shnk",
       },
     ],
   },
 ];
 
 const Sidebar = ({ openSideBar, setOpenSideBar }) => {
+  const router = useRouter();
+
   const [selectedId, setSelectedId] = useState(null);
   const [open, setOpen] = useState(null);
 
@@ -89,6 +93,7 @@ const Sidebar = ({ openSideBar, setOpenSideBar }) => {
       setOpen(menu);
     }
   };
+
   return (
     <div className="w-[270px] flex flex-col !bg-white border border-[#F5F5F5] rounded-xl p-[8px]">
       <div className="flex items-center justify-between">
@@ -141,15 +146,20 @@ const Sidebar = ({ openSideBar, setOpenSideBar }) => {
                         initial={{ opacity: 0, translateY: "30px" }}
                         animate={{ opacity: 1, translateY: "0px" }}
                         exit={{ opacity: 0, translateY: "30px" }}
+                        transition={{ duration: 0.3 }}
                       >
                         {get(item, "subMenu").map((subItem) => (
                           <li
-                            className="flex items-center space-x-4"
+                            className="flex items-center space-x-4  "
                             key={get(subItem, "id")}
                           >
                             <Link
                               href={`${get(subItem, "url")}`}
-                              className="flex items-center space-x-4"
+                              className={`flex items-center space-x-4 rounded-md px-2 ${
+                                router.pathname === get(subItem, "url")
+                                  ? "bg-white"
+                                  : ""
+                              }`}
                             >
                               <span>-</span>
                               <p className="text-xs">{get(subItem, "title")}</p>
